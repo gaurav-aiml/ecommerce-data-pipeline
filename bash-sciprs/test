@@ -1,0 +1,3 @@
+# "SELECT date(date_time) as event_date, type, state, category, COUNT(*) as num_in_cart FROM raw_data_logs WHERE pid IS NOT NULL GROUP BY 1,2,3,4;"
+
+    # "SELECT date(date_time) as event_date, type, state,  category, COUNT(*) as visit_count FROM raw_data_logs WHERE pid IS NULL GROUP BY event_date,type,state,category"
