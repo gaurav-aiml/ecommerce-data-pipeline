@@ -34,7 +34,7 @@ A typical entry of a web log into the kafka topic looks like this.
 
 3. A Hive external table is created to index the raw data that writted in the previous step. _Apache Airflow_ (_Google Composer_) is used to schedule a HiveQL query every hour to process the number of entries for visits and number of entries for products added to the shopping cart. The output of this query is stored in another _GCS Bucket_.
 
-4. The _GCS Bucket_ to which the output of the previous step is written, is monitored by a _Google Cloud Function_. Whenever data is written to this bucket, the _Cloud Function_ writes this data to a BigQuery Table. Currently, the WRITE_DISPOSITION is set to WRITE_TRUNCATE. However, this is a costly operation which will be improved in the future. Also, the data is currently partitioned on the basis of the event date. Since BigQuery has a limit of 4000 partitions per table, this means that this configuration is able to store roughly 11 years (4000/365) worth of data.
+4. The _GCS Bucket_ to which the output of the previous step is written, is monitored by a _Google Cloud Function_. Whenever data is written to this bucket, the _Cloud Function_ writes this data to a BigQuery Table \*\*. 
 
 ## Usage
 ### Prerequisites
@@ -54,6 +54,6 @@ A typical entry of a web log into the kafka topic looks like this.
 
 ## Further Improvements that I have planned to add
 - Bash scripts to create the Airflow Environment
-- Remove the WRITE_TRUNCATE way of writing to BigQuery and come up with a way to use WRITE_APPEND to add newly processed data
+- \*\* Currently, the WRITE_DISPOSITION is set to WRITE_TRUNCATE. However, this is a costly operation which will be improved in the future. Also, the data is currently partitioned on the basis of the event date. Since BigQuery has a limit of 4000 partitions per table, this means that this configuration is able to store roughly 11 years (4000/365) worth of data. Remove the WRITE_TRUNCATE way of writing to BigQuery and come up with a way to use WRITE_APPEND to add newly processed data
 - Connecting BiqQuery to Tableau to create visualizations of the data
 - Add Data-Quality checks in the Airflow DAGs
