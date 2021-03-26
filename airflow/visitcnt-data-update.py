@@ -33,8 +33,7 @@ dag = DAG(
     schedule_interval='*/15 * * * *',
     catchup=False,
     start_date=datetime(2021,3,25))
-    # start_date=datetime.utcnow())
-
+    
 submit_pyspark = DataProcPySparkOperator(
         task_id="run-visitcnt-hive-qry",
         main=HIVE_JOB,

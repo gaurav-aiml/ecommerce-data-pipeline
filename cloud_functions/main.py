@@ -2,6 +2,10 @@ import os
 from google.cloud import bigquery
 
 def upload_visited_gcs_to_bq(data, context):
+    '''
+    Google cloud function to copy data a newly written object in the GCS bucket to a Big Query table
+    This function is triggered everytime airflow dag writes visit count data to Google Cloud Storage
+    '''
     client = bigquery.Client()
 
     dataset_id = "ecom_user_data"
@@ -28,6 +32,11 @@ def upload_visited_gcs_to_bq(data, context):
 
 
 def upload_cart_gcs_to_bq(data, context):
+    '''
+    Google cloud function to copy data a newly written object in the GCS bucket to a Big Query table
+    This function is triggered everytime airflow dag writes shopping cart data to Google Cloud Storage
+    '''
+
     client = bigquery.Client()
 
     dataset_id = "ecom_user_data"
@@ -36,6 +45,8 @@ def upload_cart_gcs_to_bq(data, context):
 
     job_config = bigquery.job.LoadJobConfig()
     job_config.create_disposition = bigquery.CreateDisposition.CREATE_IF_NEEDED
+
+    #Write Truncate, because every time all the parquet file are written Big Query table.
     job_config.write_disposition = bigquery.WriteDisposition.WRITE_TRUNCATE
     job_config.autodetect = True 
     job_config.ignore_unknown_values = True
