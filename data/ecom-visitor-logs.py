@@ -111,7 +111,7 @@ while (flag):
     # Timezone
     tz = datetime.datetime.now(local).strftime('%z')
 
-    #HTTP Verb. Provided higher probability for GET requests.
+    #HTTP Verb. Provided higher probability for GET when compared to other verbs.
     vrb = np.random.choice(verb,p=[0.6,0.1,0.1,0.2])
 
     
@@ -137,7 +137,7 @@ while (flag):
         pid = int(uri_segments[3].split("pid=",1)[1])
     else :
         pid = None
-        
+    
     json_str = {"date_time": dt, "state":fake_state, "ip_address":ip, "category":uri_segments[0],'sub_cat':uri_segments[1],'type':uri_segments[2],"pid":pid}
 
     
